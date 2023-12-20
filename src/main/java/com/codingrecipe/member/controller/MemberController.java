@@ -41,7 +41,7 @@ public class MemberController {
         System.out.println("memberDto = " + memberDTO);
         memberService.save(memberDTO);
 
-        return "login";
+        return "login"; // 로그인 페이지 띄워주기
 
     }
 
