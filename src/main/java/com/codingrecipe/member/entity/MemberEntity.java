@@ -13,6 +13,7 @@ import lombok.Setter;
 @Table(name="member_table") //테이블 이름
 
 public class MemberEntity {
+    public boolean getMemberPassword;
     @Id //pk
     @GeneratedValue(strategy = GenerationType.IDENTITY) //auto_increment
     private Long id;
@@ -33,7 +34,6 @@ public class MemberEntity {
         memberEntity.setMemberEmail(memberDTO.getMemberEmail());
         memberEntity.setMemberPassword(memberDTO.getMemberPassword());
         memberEntity.setMemberName(memberDTO.getMemberName());
-
         return memberEntity;
     }
 
@@ -53,6 +53,18 @@ public class MemberEntity {
         this.memberName = memberName;
     }
 
+    public String getMemberPassword() {
+        return memberPassword;
+    }
+    public String getMemberEmail(){
+        return memberEmail;
+    }
 
+    public String getMemberName() {
+        return memberName;
+    }
 
+    public Long getId() {
+        return id;
+    }
 }

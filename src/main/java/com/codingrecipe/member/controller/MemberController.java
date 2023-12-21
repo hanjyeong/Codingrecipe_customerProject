@@ -2,6 +2,7 @@ package com.codingrecipe.member.controller;
 
 import com.codingrecipe.member.dto.MemberDTO;
 import com.codingrecipe.member.service.MemberService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.weaver.Member;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,20 +19,19 @@ public class MemberController {
     //생성자 주입
     private final MemberService memberService;
 
-    public MemberController(MemberService memberService){
+    public MemberController(MemberService memberService) {
         this.memberService = memberService;
     }
 
-    //회원 가입 버튼 클릭시 회원가입 창을 띄워주는 메서드
+
     @GetMapping("/member/save")
-    public String saveForm( ){
+    public String saveForm() {
         return "save";
     }
 
-    //회원가입 시 작성한 데이터를 받는 메서드
+
     @PostMapping("/member/save")
-    public String save( @ModelAttribute MemberDTO memberDTO )
-    {
+    public String save(@ModelAttribute MemberDTO memberDTO) {
 
         //해당 메서드가 제대로 호출이 되는지 확인
         System.out.println("Membercontroller.save");
@@ -45,6 +45,23 @@ public class MemberController {
 
     }
 
+    @GetMapping("/member/login")
+    public String loginForm() {
+        return "login";
+    }
+
+    @PostMapping("/member/login")
+    public String login(@ModelAttribute MemberDTO memberDTO, HttpSession session) {
+        MemberDTO loginResult = memberService.login(memberDTO);
+        if (loginResult != null) {
+            // login 성공
+            session.setAttribute("loginEmail", loginResult.getMemberEmail());
+            return "main";
+        } else {
+            // login 실패
+            return "login";
+        }
+    }
 }
 
 //@RequestParam("memberEmail") String memberEmail

@@ -1,5 +1,6 @@
 package com.codingrecipe.member.dto;
 
+import com.codingrecipe.member.entity.MemberEntity;
 import lombok.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,6 +19,9 @@ public class MemberDTO {
     private String memberPassword;
     private String memberName;
 
+    public long getId() {
+        return id;
+    }
     public String getMemberEmail() {
         return memberEmail;
     }
@@ -30,7 +34,29 @@ public class MemberDTO {
         return memberPassword;
     }
 
-    public long getId() {
-        return id;
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setMemberName(String memberName) {
+        this.memberName = memberName;
+    }
+
+    public void setMemberEmail(String memberEmail) {
+        this.memberEmail = memberEmail;
+    }
+
+    public void setMemberPassword(String memberPassword) {
+        this.memberPassword = memberPassword;
+    }
+
+    // entity -> dto로 변환
+    public static MemberDTO toMemberDTO(MemberEntity memberEntity) {
+        MemberDTO memberDTO = new MemberDTO();
+        memberDTO.setId(memberEntity.getId());
+        memberDTO.setMemberEmail(memberEntity.getMemberEmail());
+        memberDTO.setMemberPassword(memberEntity.getMemberPassword());
+        memberDTO.setMemberName(memberEntity.getMemberName());
+        return memberDTO;
     }
 }
